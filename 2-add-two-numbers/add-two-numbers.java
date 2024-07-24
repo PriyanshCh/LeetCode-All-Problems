@@ -29,7 +29,6 @@ class Solution {
             ListNode node=new ListNode(sum%10);
             temp.next=node;
             temp=temp.next;
-            
         }
         return dummy.next;
     }
