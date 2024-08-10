@@ -15,22 +15,9 @@ public class Solution {
         ListNode d2=headB;
 
         while(d1!=d2){
-            d1 = d1 == null? headB:d1.next;
-            d2 = d2 == null? headA:d2.next;
+            d1=d1==null?headB:d1.next;
+            d2=d2==null?headA:d2.next;
         }
-
-        // while(d1!=d2){
-        //     if(d1==null){
-        //         d1=headB;
-        //     }else{
-        //         d1=d1.next;
-        //     }
-        //     if(d2==null){
-        //         d2=headB;
-        //     }else{
-        //         d2=d2.next;
-        //     }
-        // }
-        return d2;
+        return d1;
     }
 }
