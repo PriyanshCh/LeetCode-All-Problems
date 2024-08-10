@@ -9,7 +9,7 @@
  * }
  */
 class Solution {
-    public ListNode reverse(ListNode head) {
+    public ListNode reverseLinkedList(ListNode head) {
         ListNode prev=null;
         ListNode curr=head;
         while(curr!=null){
@@ -21,21 +21,64 @@ class Solution {
         return prev;
     }
     public boolean isPalindrome(ListNode head){
-        ListNode slow=head;
-        ListNode fast=head.next;
-        while(fast!=null && fast.next!=null){
-            slow=slow.next;
-            fast=fast.next.next;
+        if (head == null || head.next == null) {
+            // It's a palindrome by definition
+            return true;
         }
-        ListNode newHead=reverse(slow.next);
-        slow.next=null;
-        while(newHead!=null){
-            if(head.val!=newHead.val){
+    
+        // Initialize two pointers, slow and fast,
+        // to find the middle of the linked list
+        ListNode slow = head;
+        ListNode fast = head;
+    
+        // Traverse the linked list to find the
+        // middle using slow and fast pointers
+        while (fast.next != null && fast.next.next != null) {
+            // Move slow pointer one step at a time
+            slow = slow.next;
+    
+            // Move fast pointer two steps at a time
+            fast = fast.next.next;
+        }
+    
+        // Reverse the second half of the 
+        // linked list starting from the middle
+        ListNode newHead = reverseLinkedList(slow.next);
+    
+        // Pointer to the first half
+        ListNode first = head;
+    
+        // Pointer to the reversed second half
+        ListNode second = newHead;
+        while (second != null) {
+            // Compare data values of
+            // nodes from both halves
+    
+            // If values do not match, the
+            // list is not a palindrome
+            if (first.val != second.val) {
+                
+                // Reverse the second half back
+                // to its original state
+                reverseLinkedList(newHead);
+    
+                // Not a palindrome
                 return false;
             }
-            head=head.next;
-            newHead=newHead.next;
+    
+            // Move the first pointer
+            first = first.next;
+    
+            // Move the second pointer
+            second = second.next;
         }
+    
+        // Reverse the second half back
+        // to its original state
+        reverseLinkedList(newHead);
+    
+        // The linked list is a palindrome
         return true;
-    }
+    }   
+
 }
