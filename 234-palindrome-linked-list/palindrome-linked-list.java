@@ -9,95 +9,33 @@
  * }
  */
 class Solution {
-    public ListNode reverseLinkedList(ListNode head) {
-   if (head == null || head.next == null) {
-
-            // No change is needed;
-            // return the current head
-            return head;
+    public ListNode reverse(ListNode head) {
+        ListNode prev=null;
+        ListNode curr=head;
+        while(curr!=null){
+            ListNode next=curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr=next;
         }
-
-        // Recursive step: Reverse the remaining
-        // part of the list and get the new head
-        ListNode newHead = reverseLinkedList(head.next);
-
-        // Store the next node in 'front'
-        // to reverse the link
-        ListNode front = head.next;
-
-        // Update the 'next' pointer of 'front' to
-        // point to the current head, effectively
-        // reversing the link direction
-        front.next = head;
-
-        // Set the 'next' pointer of the
-        // current head to 'null' to
-        // break the original link
-        head.next = null;
-
-        // Return the new head obtained
-        // from the recursion
-        return newHead;
+        return prev;
     }
     public boolean isPalindrome(ListNode head){
-        if (head == null || head.next == null) {
-            // It's a palindrome by definition
-            return true;
+        ListNode slow=head;
+        ListNode fast=head.next;
+        while(fast!=null && fast.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
         }
-    
-        // Initialize two pointers, slow and fast,
-        // to find the middle of the linked list
-        ListNode slow = head;
-        ListNode fast = head;
-    
-        // Traverse the linked list to find the
-        // middle using slow and fast pointers
-        while (fast.next != null && fast.next.next != null) {
-            // Move slow pointer one step at a time
-            slow = slow.next;
-    
-            // Move fast pointer two steps at a time
-            fast = fast.next.next;
-        }
-    
-        // Reverse the second half of the 
-        // linked list starting from the middle
-        ListNode newHead = reverseLinkedList(slow.next);
-    
-        // Pointer to the first half
-        ListNode first = head;
-    
-        // Pointer to the reversed second half
-        ListNode second = newHead;
-        while (second != null) {
-            // Compare data values of
-            // nodes from both halves
-    
-            // If values do not match, the
-            // list is not a palindrome
-            if (first.val != second.val) {
-                
-                // Reverse the second half back
-                // to its original state
-                reverseLinkedList(newHead);
-    
-                // Not a palindrome
+        ListNode newHead=reverse(slow.next);
+        slow.next=null;
+        while(newHead!=null){
+            if(head.val!=newHead.val){
                 return false;
             }
-    
-            // Move the first pointer
-            first = first.next;
-    
-            // Move the second pointer
-            second = second.next;
+            head=head.next;
+            newHead=newHead.next;
         }
-    
-        // Reverse the second half back
-        // to its original state
-        reverseLinkedList(newHead);
-    
-        // The linked list is a palindrome
         return true;
-    }   
-
+    }
 }
