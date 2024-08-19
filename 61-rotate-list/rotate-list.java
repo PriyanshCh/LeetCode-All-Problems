@@ -10,8 +10,11 @@
  */
 class Solution {
     public ListNode rotateRight(ListNode head, int k) {
+        //edge cases
         if(head==null || head.next==null || k==0)return head;
 
+
+        // find the length
         ListNode curr=head;
         int len=1;
         while(curr.next!=null){
@@ -19,7 +22,9 @@ class Solution {
             curr=curr.next;
         }
 
+        // go till that node(k)
         curr.next=head;
+
         k=k % len;
         k=len - k;
         while(k-- > 0)curr=curr.next;
