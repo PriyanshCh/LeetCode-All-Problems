@@ -11,24 +11,28 @@
 class Solution {
     public ListNode reverseList(ListNode head) {
         ////ITERATIVE
-        // ListNode newHead=null;
-        // while(head!=null){
-        //     ListNode next=head.next;
-        //     head.next=newHead;
-        //     newHead=head;
-        //     head=next;
-        // }
-        // return newHead;
+        ListNode temp=head;
+        ListNode prev=null;
 
-        ////RECURSIVE
-        if(head==null || head.next==null){
-            return head;
+        while(temp!=null){
+            ListNode front=temp.next;
+            temp.next=prev;
+            prev=temp;
+            temp=front;
         }
-        ListNode newHead=reverseList(head.next);
-        ListNode front=head.next;
-        front.next=head;
-        head.next=null;
-
-        return newHead;
+        return prev;
     }
 }
+
+        ////RECURSIVE
+//         if(head==null || head.next==null){
+//             return head;
+//         }
+//         ListNode newHead=reverseList(head.next);
+//         ListNode front=head.next;
+//         front.next=head;
+//         head.next=null;
+
+//         return newHead;
+//     }
+// }
