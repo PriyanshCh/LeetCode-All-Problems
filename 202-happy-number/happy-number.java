@@ -14,12 +14,14 @@ class Solution {
         return false;
 
     }
-    public int findSquare(int number){
+
+    public int findSquare(int num){
         int ans=0;
-        while(number>0){
-            int rem=number%10;
-            ans +=rem*rem;
-            number /=10;
+         
+        while(num>0){
+            int rem=num%10;
+            ans+=rem*rem;
+            num/=10;
         }
         return ans;
     }
