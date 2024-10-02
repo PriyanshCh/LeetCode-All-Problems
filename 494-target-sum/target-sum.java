@@ -25,7 +25,7 @@ class Solution {
                 dp[i][j] = dp[i - 1][j];
                 // Include the current element if it doesn't exceed the current sum
                 if (nums[i - 1] <= j) {
-                    dp[i][j] += dp[i - 1][j - nums[i - 1]];
+                    dp[i][j] = dp[i - 1][j - nums[i - 1]]+dp[i-1][j];
                 }
             }
         }
