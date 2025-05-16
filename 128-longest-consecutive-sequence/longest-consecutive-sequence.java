@@ -7,23 +7,23 @@ class Solution {
             numSet.add(num);
         }
 
-        int longestStreak = 0;
+        int longest = 0;
 
         for (int num : numSet) {
             // only start if it's the beginning of a sequence
             if (!numSet.contains(num - 1)) {
                 int currentNum = num;
-                int currentStreak = 1;
+                int current = 1;
 
                 while (numSet.contains(currentNum + 1)) {
                     currentNum += 1;
-                    currentStreak += 1;
+                    current += 1;
                 }
 
-                longestStreak = Math.max(longestStreak, currentStreak);
+                longest = Math.max(longest, current);
             }
         }
 
-        return longestStreak;
+        return longest;
     }
 }
