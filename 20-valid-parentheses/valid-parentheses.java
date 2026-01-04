@@ -1,28 +1,19 @@
 class Solution {
     public boolean isValid(String s) {
-        HashMap<Character, Character> Hmap = new HashMap<Character, Character>();
-        Hmap.put(')','(');
-        Hmap.put('}','{');
-        Hmap.put(']','[');
-        
-        Stack<Character> stack = new Stack<Character>();
-        
-        for (int index = 0; index < s.length(); index++){
-           
-            if (s.charAt(index) == '(' || s.charAt(index) == '{'||s.charAt(index) == '[')
-            {       
-                stack.push(s.charAt(index));
-                continue;
-            }
-           
-            if (stack.size() == 0 || Hmap.get(s.charAt(index)) != stack.pop()) {
-                return false;
+        Stack<Character> st = new Stack<>();
+
+        for (char c : s.toCharArray()) {
+            if (c == '(' || c == '{' || c == '[') {
+                st.push(c);
+            } else {
+                if (st.isEmpty()) return false;
+                char t = st.pop();
+                if (c == ')' && t != '(') return false;
+                if (c == '}' && t != '{') return false;
+                if (c == ']' && t != '[') return false;
             }
         }
-        
-        if (stack.size() == 0) {
-            return true;
-        }
-        return false;
+
+        return st.isEmpty();
     }
 }
