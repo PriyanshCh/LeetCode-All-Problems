@@ -1,34 +1,46 @@
 class Solution {
     public void nextPermutation(int[] nums) {
-        int n=nums.length;
-        if(n<2){
-            return;
-        }
-        int k=n-2;
-        while(k>=0 && nums[k]>=nums[k+1]){
-            k--;
+        int n = nums.length;
+
+        // Step 1: Find breakpoint
+        int ind = -1;
+
+        for (int i = n - 2; i >= 0; i--) {
+            if (nums[i] < nums[i + 1]) {
+                ind = i;
+                break;
+            }
         }
 
-        if(k>=0){
-            int l=n-1;
-            while(nums[l]<=nums[k]){
-                l--;
-            }
-            swap(nums,k,l);
+        // Step 2: If no breakpoint, reverse whole array
+        if (ind == -1) {
+            reverse(nums, 0, n - 1);
+            return;
         }
-        reverse(nums,k+1,n-1);
+
+        // Step 3: Find next greater element from right
+        for (int i = n - 1; i > ind; i--) {
+            if (nums[i] > nums[ind]) {
+                swap(nums, i, ind);
+                break;
+            }
+        }
+
+        // Step 4: Reverse right half
+        reverse(nums, ind + 1, n - 1);
     }
-    public void swap(int[] nums, int i, int j){
-        int temp=nums[i];
-        nums[i]=nums[j];
-        nums[j]=temp;
+
+    private void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
     }
-    public void reverse(int[] nums, int start, int end){
-        while(start<end){
-            swap(nums,start,end);
+
+    private void reverse(int[] nums, int start, int end) {
+        while (start < end) {
+            swap(nums, start, end);
             start++;
             end--;
         }
     }
-    
 }
